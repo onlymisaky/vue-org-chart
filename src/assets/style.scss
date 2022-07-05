@@ -1,0 +1,118 @@
+/* chart styles */
+.orgchart {
+  box-sizing: border-box;
+  display: inline-block;
+  user-select: none;
+  border: 1px dashed rgba(0, 0, 0, 0);
+  padding: 20px 20px 0 20px;
+}
+
+$link-line-width: 2px;
+$vertical-line-height: 20px;
+$link-line-color:skyblue;
+$item-margin:6px;
+
+.children {
+  display: flex;
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+// 根节点
+.orgchart>.children>.org {
+  &>.node-container::before {
+    content: none;
+  }
+}
+
+// 唯一子节点 不显示横线
+.children {
+  .org:only-child {
+    &::before {
+      content: none;
+    }
+  }
+}
+
+.org>.children {
+  margin-top: 2*$vertical-line-height;
+}
+
+.children>.org {
+
+  // todo 设置最后一层的边距
+  &:not(:first-child),
+  &:not(:last-child) {}
+
+  &:first-child {}
+
+  &:last-child {}
+}
+
+.org {
+  position: relative;
+
+  // 横线
+  &::before {
+    content: "";
+    position: absolute;
+    top: -$vertical-line-height;
+    left: 0;
+    width: 100%;
+    border-top: $link-line-width solid $link-line-color;
+    box-sizing: border-box;
+  }
+
+  // 最左侧
+  &:first-child::before {
+    // todo
+    left: 50%;
+  }
+
+  // 最右侧
+  &:last-child::before {
+    // todo
+    width: 50%;
+  }
+}
+
+.node-container {
+  box-sizing: border-box;
+  display: inline-block;
+  position: relative;
+  margin: 0 !important;
+  padding: 0 !important;
+  transition: transform 0.3s, opacity 0.3s;
+
+  // 向下连接线
+  &:not(:only-child)::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    // todo
+    left: 50%;
+    width: $link-line-width;
+    height: $vertical-line-height;
+    background-color: $link-line-color;
+  }
+
+  // 向上连接线
+  &::before {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    // todo
+    left: 50%;
+    width: $link-line-width;
+    height: $vertical-line-height;
+    background-color: $link-line-color;
+  }
+
+  &:hover {
+    background-color: rgba(238, 217, 54, 0.5);
+    transition: .5s;
+    cursor: default;
+    z-index: 20;
+  }
+}
