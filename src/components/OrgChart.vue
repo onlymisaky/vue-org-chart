@@ -8,6 +8,18 @@ const org = ref({
   title: 'general manager',
   children: [
     {
+      name: 'Su Miao', title: 'department manager', children: [
+        { name: 'Bo Miao', title: 'department manager' },
+        {
+          name: 'Chun Miao', title: 'department manager',
+          children: [
+          ]
+        },
+        { name: 'Er Dan Zai', title: 'Intern' },
+        { name: 'Su Miao', title: 'department manager', },
+      ]
+    },
+    {
       name: 'Bo Miao', title: 'department manager',
       children: [
         { name: 'Bo Miao', title: 'department manager' },
@@ -39,13 +51,26 @@ const org = ref({
         { name: 'Su Miao', title: 'department manager', },
       ]
     },
-    { name: 'Su Miao', title: 'department manager' },
+    {
+      name: 'Su Miao', title: 'department manager', children: [
+        { name: 'Bo Miao', title: 'department manager' },
+        {
+          name: 'Chun Miao', title: 'department manager',
+          children: [
+          ]
+        },
+        { name: 'Er Dan Zai', title: 'Intern' },
+        { name: 'Su Miao', title: 'department manager', },
+      ]
+    },
   ]
 });
 
-function onNodeClick(node, index, parent) {
-  console.log('node-click', node, index, parent);
+function onNodeClick(...args) {
+  console.log('node-click', ...args);
 }
+
+
 
 </script>
 
@@ -55,7 +80,8 @@ function onNodeClick(node, index, parent) {
       <Org :org="org"
         @node-click="onNodeClick">
         <template v-slot:node="{ data, index, parent }">
-          <Node :data="data" />
+          <Node :data="data"
+            :index="index" />
         </template>
       </Org>
     </ul>

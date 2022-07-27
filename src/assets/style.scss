@@ -8,9 +8,10 @@
 }
 
 $link-line-width: 2px;
-$vertical-line-height: 20px;
+$vertical-line-height: 30px;
+$expand-size: 16px;
 $link-line-color:skyblue;
-$item-margin:6px;
+$item-margin: 60px;
 
 .children {
   display: flex;
@@ -19,20 +20,14 @@ $item-margin:6px;
   margin: 0;
 }
 
-// 根节点
-.orgchart>.children>.org {
-  &>.node-container::before {
-    content: none;
-  }
+// 根节点 不显示向上连接线
+.orgchart>.children>.org>.node-container>.line-to-parent {
+  display: none;
 }
 
-// 唯一子节点 不显示横线
-.children {
-  .org:only-child {
-    &::before {
-      content: none;
-    }
-  }
+// 唯一子节点 不显左右连接线
+.children .org:only-child>.line-to-sibling {
+  display: none;
 }
 
 .org>.children {
@@ -53,9 +48,7 @@ $item-margin:6px;
 .org {
   position: relative;
 
-  // 横线
-  &::before {
-    content: "";
+  &>.line-to-sibling {
     position: absolute;
     top: -$vertical-line-height;
     left: 0;
@@ -64,15 +57,11 @@ $item-margin:6px;
     box-sizing: border-box;
   }
 
-  // 最左侧
-  &:first-child::before {
-    // todo
+  &:first-child>.line-to-sibling {
     left: 50%;
   }
 
-  // 最右侧
-  &:last-child::before {
-    // todo
+  &:last-child>.line-to-sibling {
     width: 50%;
   }
 }
@@ -85,34 +74,35 @@ $item-margin:6px;
   padding: 0 !important;
   transition: transform 0.3s, opacity 0.3s;
 
-  // 向下连接线
-  &:not(:only-child)::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    // todo
-    left: 50%;
-    width: $link-line-width;
-    height: $vertical-line-height;
-    background-color: $link-line-color;
-  }
-
-  // 向上连接线
-  &::before {
-    content: "";
+  &>.line-to-parent {
     position: absolute;
     bottom: 100%;
-    // todo
     left: 50%;
     width: $link-line-width;
     height: $vertical-line-height;
     background-color: $link-line-color;
   }
 
-  &:hover {
-    background-color: rgba(238, 217, 54, 0.5);
-    transition: .5s;
-    cursor: default;
-    z-index: 20;
+  &>.line-to-children {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    width: $link-line-width;
+    height: $vertical-line-height;
+    background-color: $link-line-color;
+  }
+
+  &>.expand {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    width: $expand-size;
+    height: $expand-size;
+    box-sizing: border-box;
+    transform: translate(-$expand-size/2, -$expand-size/2);
+    border-radius: 50%;
+    background-color: hotpink;
+    z-index: 999;
+    cursor: pointer;
   }
 }

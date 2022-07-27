@@ -4,6 +4,9 @@ defineProps({
   data: {
     type: Object,
     required: true,
+  },
+  index: {
+    type: Number
   }
 })
 
@@ -11,6 +14,7 @@ defineProps({
 
 <template>
   <div class="node">
+    <h1>{{ index }}</h1>
     <div class="title">{{ data.name }}</div>
     <div class="content">{{ data.title }}</div>
   </div>
