@@ -80,6 +80,7 @@ $item-margin: 60px;
     left: 50%;
     width: $link-line-width;
     height: $vertical-line-height;
+    transform: translateX(-50%);
     background-color: $link-line-color;
   }
 
@@ -89,6 +90,7 @@ $item-margin: 60px;
     left: 50%;
     width: $link-line-width;
     height: $vertical-line-height;
+    transform: translateX(-50%);
     background-color: $link-line-color;
   }
 
@@ -99,7 +101,7 @@ $item-margin: 60px;
     width: $expand-size;
     height: $expand-size;
     box-sizing: border-box;
-    transform: translate(-$expand-size/2, -$expand-size/2);
+    transform: translate(-50%, -50%);
     border-radius: 50%;
     background-color: hotpink;
     z-index: 999;

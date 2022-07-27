@@ -70,8 +70,6 @@ function onNodeClick(...args) {
   console.log('node-click', ...args);
 }
 
-
-
 </script>
 
 <template>
